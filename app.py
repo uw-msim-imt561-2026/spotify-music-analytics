@@ -17,7 +17,7 @@ def main() -> None:
     st.caption("This is a dashboard curated from  Spotify Music Analytics Dataset, meant to illustrate trends in music and other features.")
 
     # ✅ Data loading (cached)
-    df = load_data("./data/u")
+    df = load_data("./data/updatedspotify")
 
     # -------------------------
     # TODO (DEMO): Add a quick 'data sanity' check
