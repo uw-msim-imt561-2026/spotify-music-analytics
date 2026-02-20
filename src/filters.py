@@ -11,10 +11,13 @@ def render_filters(df: pd.DataFrame) -> pd.DataFrame:
     st.sidebar.header("Dashboard Filters")
 
     # --- Key Dropdown ---
+    keys_with_none = ["None"] + sorted(df["key"].dropna().unique())
     selected_key = st.sidebar.selectbox(
         "Select Musical Key",
-        options=sorted(df["key"].dropna().unique())
+        options=keys_with_none,
+        index=0
     )
+
 
     # --- Stream Count Slider ---
     min_stream = int(df["stream_count"].min())
