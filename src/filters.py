@@ -11,10 +11,10 @@ def render_filters(df: pd.DataFrame) -> pd.DataFrame:
     st.sidebar.header("Dashboard Filters")
 
     # --- Key Dropdown ---
-    keys_with_none = ["None"] + sorted(df["key"].dropna().unique())
+    keys_with_all = ["All"] + sorted(df["key"].dropna().unique())
     selected_key = st.sidebar.selectbox(
         "Select Musical Key",
-        options=keys_with_none,
+        options=keys_with_all,
         index=0
     )
 
@@ -47,8 +47,10 @@ def render_filters(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     # --- Apply filters ---
+    key_mask = (df["key"] == selected_key) if selected_key != "All" else True
+
     filtered_df = df[
-        (df["key"] == selected_key) &
+        key_mask &
         (df["stream_count"] >= stream_range[0]) &
         (df["stream_count"] <= stream_range[1]) &
         (df["release_year"] >= year_range[0]) &
