@@ -20,13 +20,26 @@ def render_popularity_distribution(df: pd.DataFrame):
 
 def render_genres_over_time_by_country(df: pd.DataFrame):
     st.subheader("🌍 Genre Trends Over Time by Country")
-    grouped = df.groupby(["release_year", "country", "genre"], as_index=False)["track_name"].count()
+
+    if df.empty:
+        st.warning("No data available for current filters.")
+        return
+
+    # Count number of tracks
+    grouped = (
+        df.groupby(["release_year", "country", "genre"], as_index=False)
+        .agg(track_count=("track_name", "count"))
+    )
+
     fig = px.line(
         grouped,
         x="release_year",
-        y="track_name",
+        y="track_count",
         color="genre",
-        line_group="country",
+        facet_col="country",
         title="Genre Trends Over Time by Country"
     )
+
+    fig.update_layout(yaxis_title="Number of Tracks")
+
     st.plotly_chart(fig, use_container_width=True)
