@@ -32,7 +32,7 @@ def main():
         df["key"] = df["key"].map(num_to_key)
     filtered_df = render_filters(df)
 
-    render_kpis(filtered_df)
+    render_kpis(filtered_df, df)
 
     render_key_popularity_over_time(filtered_df)
     render_avg_stream_by_label(filtered_df)
