@@ -21,6 +21,7 @@ These stakeholders would use the dashboard to:
 - Inform playlist curation strategies
 - Guide promotional targeting by region
 - Identify emerging genres
+
 Overall, the primary stakeholders would leverage the dashboard to gain specific insights about up-and-coming Music Labels, Genres, Musical Keys, all in relation to popularity and stream count for countries over time.
 Evaluate label performance
 Optimize new release visibility
