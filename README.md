@@ -17,6 +17,7 @@ The questions our stakeholders would seek to answer:
 - Are there any differences to note in music trends across countries or labels?
 - How do popularity and streaming metrics for newly released content vary across genres, to guide future steps for promotional reach and visibility?
 - Which music label produces the most popular music?
+
 These stakeholders would use the dashboard to:
 - Inform playlist curation strategies
 - Guide promotional targeting by region
