@@ -2,6 +2,8 @@
 ## IMT 561 Winter 2026
 ### Plotify: Shubhi, Emily, Skyler
 
+Link to Streamlit Dashboard: https://spotify-music-analytics.streamlit.app 
+
 TODO: ADD HEADERS, HIGHLIGHT DIFFERENCE BETWEEN STAKEHOLDERS, AND EXPAND UPON MUSICAL KEYS AND WHY THEY WOULD BE IMPORTANT FOR TRENDS
 
 ### Description of Stakeholders
