@@ -16,6 +16,7 @@ The dashboard was built in Streamlit using this data to allow stakeholders to:
 - Analyze streaming trends
 - Examine relationships between popularity and audio features
 - Identify high- and low-performing labels
+
 Stakeholders may be interested in exploring the following questions:
 - How have genres and audio features associated with popular tracks changed from 2015 to 2025?
 - What relationships exist between audio features and popularity or streaming counts?
@@ -24,5 +25,6 @@ Stakeholders may be interested in exploring the following questions:
 - Which music label produces the most popular music?
 
 ### Stakeholder Context and Intended Use of the Dashboard
-Spotify's product team can use insights from this dashboard to inform feature development and UX decisions. Their focus would be optimizing popular recommendations and enhancing personalization. By identifying shifts in genre diversity, audio feature trends, and track popularity over time, the team can refine how content is surfaced and ranked within personalized playlists and discovery feeds. The team can also strengthen listeners’ sense of personalization and platform value by helping them understand and interact with their own listening patterns through features like Spotify Wrapped and Discover Weekly. 
+Spotify's product team can use insights from this dashboard to inform feature development and UX decisions. Their focus would be optimizing popular recommendations and enhancing personalization. By identifying shifts in genre diversity, audio feature trends, and track popularity over time, the team can refine how content is surfaced and ranked within personalized playlists and discovery feeds. The team can also strengthen listeners’ sense of personalization and platform value by helping them understand and interact with their own listening patterns through features like Spotify Wrapped and Discover Weekly.
+
 The content/marketing strategy team could use this dashboard to shape social media presence and promotional strategy, focusing on growth, acquisition, brand positioning, and artist amplification. They can use insights on label performance to create partnership opportunities and secure exclusive promotional material from artists. New release visibility could be improved through promptional targeting by region. 
