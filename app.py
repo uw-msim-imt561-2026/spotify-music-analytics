@@ -18,6 +18,8 @@ def load_data():
 def main():
     st.set_page_config(page_title="Spotify Music Analytics", layout="wide")
     st.title("🎧 Spotify Music Analytics Dashboard")
+    st.markdown(
+        "_Dataset: [Spotify Music Analytics Dataset (2015–2025)](https://www.kaggle.com/datasets/rohiteng/spotify-music-analytics-dataset-20152025/data) — IMT 561 class project_")
 
     df = load_data()
 
