@@ -4,8 +4,6 @@
 
 Link to Streamlit Dashboard: https://spotify-music-analytics.streamlit.app 
 
-TODO: ADD HEADERS, HIGHLIGHT DIFFERENCE BETWEEN STAKEHOLDERS, AND EXPAND UPON MUSICAL KEYS AND WHY THEY WOULD BE IMPORTANT FOR TRENDS
-
 ### Description of Stakeholders
 The primary stakeholders for this analysis are Spotify's product team and their content/marketing strategy team. The product team is responsible for understanding Spotify users, creating Spotify features, developing recommendation algorithms, and improving user experience, engagement, and retention. The content/marketing strategy team promotes artists and record labels, establishes branding, and promotes audience growth across the global market. 
 
