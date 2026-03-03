@@ -33,10 +33,11 @@ def main():
     filtered_df = render_filters(df)
 
     render_kpis(filtered_df, df)
-
-    render_key_popularity_over_time(filtered_df)
-    render_avg_stream_by_label(filtered_df)
+    # Most intuitive visuals first
     render_popularity_distribution(filtered_df)
+    render_avg_stream_by_label(filtered_df)
+    # More complex visuals lower
+    render_key_popularity_over_time(filtered_df)
     render_genres_over_time_by_country(filtered_df)
 
 if __name__ == "__main__":
