@@ -2,6 +2,11 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 
+# Spotify brand colors
+SPOTIFY_GREEN = "#1DB954"
+SPOTIFY_ALT_GREEN = "#5CEC8C"
+spotify_colors = [SPOTIFY_GREEN, SPOTIFY_ALT_GREEN]
+
 
 def render_key_popularity_over_time(df: pd.DataFrame):
     st.subheader("🎹 Musical Key Share of Streams")
@@ -11,11 +16,12 @@ def render_key_popularity_over_time(df: pd.DataFrame):
         "minor keys more somber). This chart explores whether certain keys are associated "
         "with higher average popularity scores."
     )
+
     if df.empty:
         st.warning("No data available for current filters.")
         return
 
-        # Add legend/explanation for musical mode
+    # Add legend/explanation for musical mode
     st.info(
         """
         **Understanding Musical Keys & Mode:**
@@ -50,8 +56,12 @@ def render_key_popularity_over_time(df: pd.DataFrame):
             markers=True,
             title="Average Track Popularity by Key & Mode Over Time"
         )
-        fig.update_layout(xaxis_title="Release Year", yaxis_title="Average Popularity", legend_title="Key - Mode",
-                          xaxis=dict(dtick=1))
+        fig.update_layout(
+            xaxis_title="Release Year",
+            yaxis_title="Average Popularity",
+            legend_title="Key - Mode",
+            xaxis=dict(dtick=1)
+        )
     else:
         # Single year -> use bar chart
         year = grouped["release_year"].iloc[0]
@@ -60,9 +70,17 @@ def render_key_popularity_over_time(df: pd.DataFrame):
             x="key_mode",
             y="avg_popularity",
             color="mode_label",
-            title=f"Average Track Popularity by Key & Mode ({year})"
+            title=f"Average Track Popularity by Key & Mode ({year})",
+            color_discrete_map={
+                "Major (Brighter)": SPOTIFY_GREEN,
+                "Minor (Emotional)": SPOTIFY_ALT_GREEN
+            }
         )
-        fig.update_layout(xaxis_title="Musical Key & Mode", yaxis_title="Average Popularity", legend_title="Mode")
+        fig.update_layout(
+            xaxis_title="Musical Key & Mode",
+            yaxis_title="Average Popularity",
+            legend_title="Mode"
+        )
 
     st.plotly_chart(fig, use_container_width=True)
 
@@ -80,7 +98,14 @@ def render_avg_stream_by_label(df: pd.DataFrame):
         grouped,
         x="label",
         y="stream_count",
-        title="Average Stream Count by Label"
+        title="Average Stream Count by Label",
+        color="label",
+        color_discrete_sequence=spotify_colors  # branded green shades
+    )
+
+    fig.update_layout(
+        xaxis_title="Label",
+        yaxis_title="Average Streams"
     )
 
     st.plotly_chart(fig, use_container_width=True)
@@ -97,7 +122,8 @@ def render_popularity_distribution(df: pd.DataFrame):
         df,
         x="popularity",
         nbins=20,
-        title="Track Popularity Distribution"
+        title="Track Popularity Distribution",
+        color_discrete_sequence=[SPOTIFY_GREEN]
     )
 
     fig.update_layout(
@@ -129,7 +155,8 @@ def render_genres_over_time_by_country(df: pd.DataFrame):
             x="genre",
             y="total_streams",
             color="country",
-            title="Genre Distribution (Single Year Selected)"
+            title="Genre Distribution (Single Year Selected)",
+            color_discrete_sequence=spotify_colors
         )
     else:
         # Prevent 10+ country overload
