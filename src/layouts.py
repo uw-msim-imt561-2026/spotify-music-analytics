@@ -38,32 +38,34 @@ def render_kpis(filtered_df: pd.DataFrame, full_df: pd.DataFrame):
     # KPI 2: Total Streams
     # -------------------------
     if (
-        not filtered_df.empty
-        and "stream_count" in filtered_df.columns
-        and "release_year" in filtered_df.columns
+            not filtered_df.empty
+            and "stream_count" in filtered_df.columns
+            and "release_year" in filtered_df.columns
     ):
         total_streams = filtered_df["stream_count"].sum()
 
         latest_year = filtered_df["release_year"].max()
         prev_year = latest_year - 1
 
-        prev_streams = filtered_df[
-            filtered_df["release_year"] == prev_year
-        ]["stream_count"].sum()
+        # Look at the full dataset for previous year, not just filtered
+        prev_streams = full_df[
+            full_df["release_year"] == prev_year
+            ]["stream_count"].sum()
 
-        change_pct = (
-            (total_streams - prev_streams) / prev_streams * 100
-            if prev_streams > 0 else 0
-        )
+        if prev_streams > 0:
+            change_pct = (total_streams - prev_streams) / prev_streams * 100
+            change_label = f"{change_pct:.2f}%"
+        else:
+            change_label = "N/A"
     else:
         total_streams = None
-        change_pct = None
+        change_label = "N/A"
 
     with col2:
         st.metric(
             label="🎧 Total Streams (Selected Filters)",
             value=f"{total_streams:,}" if total_streams is not None else "N/A",
-            delta=f"{change_pct:.1f}%" if change_pct is not None else "N/A",
+            delta=change_label,
             help="Percent change compared to the previous available year."
         )
 

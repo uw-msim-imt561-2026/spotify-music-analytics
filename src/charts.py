@@ -3,10 +3,18 @@ import plotly.express as px
 import pandas as pd
 
 # Spotify brand colors
-SPOTIFY_GREEN = "#1DB954"
-SPOTIFY_ALT_GREEN = "#5CEC8C"
-spotify_colors = [SPOTIFY_GREEN, SPOTIFY_ALT_GREEN]
+SPOTIFY_GREEN = "#1DB954"          # Main Spotify green
+SPOTIFY_ALT_GREEN = "#1ED761"      # Alternate brighter green for contrast
+MUSTARD_YELLOW = "#FFC857"         # For N/A or missing data
 
+spotify_colors = [
+    SPOTIFY_GREEN,           # Main green
+    SPOTIFY_ALT_GREEN,       # Lighter green
+    "#FF6B6B",               # Red/pink for contrast
+    "#4D96FF",               # Blue for contrast
+    "#FFA500",               # Orange
+    "#9B59B6",               # Purple
+]
 
 def render_key_popularity_over_time(df: pd.DataFrame):
     st.subheader("🎹 Musical Key Share of Streams")
@@ -46,40 +54,42 @@ def render_key_popularity_over_time(df: pd.DataFrame):
     key_order = ['C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B']
     grouped['key'] = pd.Categorical(grouped['key'], categories=key_order, ordered=True)
 
-    # Decide chart type: line if multiple years, bar if only one year
-    if grouped["release_year"].nunique() > 1:
+    # Decide chart type
+    if grouped["release_year"].nunique() == 1:
+        # Single year -> side-by-side bar chart
+        pivot_df = grouped.pivot(index="key", columns="mode_label", values="avg_popularity").reset_index()
+        fig = px.bar(
+            pivot_df,
+            x="key",
+            y=["Major (Brighter)", "Minor (Emotional)"],
+            barmode="group",
+            color_discrete_map={
+                "Major (Brighter)": SPOTIFY_GREEN,
+                "Minor (Emotional)": "#FF6B6B",  # distinct for clarity
+            },
+            title=f"Average Track Popularity by Key & Mode ({grouped['release_year'].iloc[0]})"
+        )
+        fig.update_layout(
+            xaxis_title="Musical Key",
+            yaxis_title="Average Popularity",
+            legend_title="Mode"
+        )
+    else:
+        # Multiple years -> line chart
         fig = px.line(
             grouped,
             x="release_year",
             y="avg_popularity",
-            color="key_mode",
+            color="mode_label",
+            line_group="key",
             markers=True,
             title="Average Track Popularity by Key & Mode Over Time"
         )
         fig.update_layout(
             xaxis_title="Release Year",
             yaxis_title="Average Popularity",
-            legend_title="Key - Mode",
+            legend_title="Mode",
             xaxis=dict(dtick=1)
-        )
-    else:
-        # Single year -> use bar chart
-        year = grouped["release_year"].iloc[0]
-        fig = px.bar(
-            grouped,
-            x="key_mode",
-            y="avg_popularity",
-            color="mode_label",
-            title=f"Average Track Popularity by Key & Mode ({year})",
-            color_discrete_map={
-                "Major (Brighter)": SPOTIFY_GREEN,
-                "Minor (Emotional)": SPOTIFY_ALT_GREEN
-            }
-        )
-        fig.update_layout(
-            xaxis_title="Musical Key & Mode",
-            yaxis_title="Average Popularity",
-            legend_title="Mode"
         )
 
     st.plotly_chart(fig, use_container_width=True)
